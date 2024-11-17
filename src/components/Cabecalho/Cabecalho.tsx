@@ -41,7 +41,7 @@ const Cabecalho = () => {
             className="object-contain"
           />
         </div>
-        <Link href="####" className="text-lg font-bold hover:underline">
+        <Link href="http://localhost:3000/" className="text-lg font-bold hover:underline">
           Simulador
         </Link>
         <div className="relative" ref={menuRef}>
