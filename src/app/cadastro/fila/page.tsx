@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Empresa } from "@/types/type"; // Certifique-se de que o caminho está correto
+import { Empresa } from "@/types/type"; 
 
 export default function FilaCadastro() {
   const [modalAberto, setModalAberto] = useState(false);
@@ -49,7 +49,7 @@ export default function FilaCadastro() {
       <h1 className="text-3xl font-bold mb-8">Empresas na Fila de Cadastro</h1>
 
       {carregando && <p>Carregando...</p>}
-      {erro && <p>{erro}</p>}
+      {erro && <p className="text-red-500">{erro}</p>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
         {empresasPendentes.map((empresa) => (
@@ -82,19 +82,19 @@ export default function FilaCadastro() {
           >
             <h2 className="text-2xl font-bold mb-4">{empresaSelecionada.nome}</h2>
             <p className="text-sm text-gray-400 mb-2">
-              <strong>CNPJ:</strong> {empresaSelecionada.cnpj}
+              <span className="font-bold">CNPJ:</span> {empresaSelecionada.cnpj}
             </p>
             <p className="text-sm text-gray-400 mb-2">
-              <strong>Custo Atual KWH:</strong> {empresaSelecionada.kwh}
+              <span className="font-bold">Custo Atual KWH:</span> {empresaSelecionada.kwh}
             </p>
             <p className="text-sm text-gray-400 mb-2">
-              <strong>Tipo de Energia:</strong> {empresaSelecionada.tipoEnergia}
+              <span className="font-bold">Tipo de Energia:</span> {empresaSelecionada.tipoEnergia}
             </p>
             <p className="text-sm text-gray-400 mb-2">
-              <strong>Estado:</strong> {empresaSelecionada.estado}
+              <span className="font-bold">Estado:</span> {empresaSelecionada.estado}
             </p>
             <p className="text-sm text-gray-400">
-              <strong>Email:</strong> {empresaSelecionada.email}
+              <span className="font-bold">Email:</span> {empresaSelecionada.email}
             </p>
             <button
               onClick={fecharModal}

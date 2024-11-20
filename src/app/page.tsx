@@ -29,7 +29,7 @@ export default function Home() {
 
   useEffect(() => {
     if (estado) {
-      // Busca as empresas da API
+
       fetch(`http://localhost:8080/api/empresas/estado/${estado}`)
         .then((response) => response.json())
         .then((data: Empresa[]) => {
@@ -57,7 +57,6 @@ export default function Home() {
       (empresa) => empresa.id === selectedEmpresaIdNumber
     );
     setEmpresaSelecionada(selectedEmpresa || null);
-    // Resetar os cálculos ao mudar a empresa atual
     setEmpresasCalculadas([]);
   };
 
@@ -75,19 +74,14 @@ export default function Home() {
       return;
     }
 
-    // Custo por kWh da empresa atual
     const custoPorKwh = valorContaNumero / empresaSelecionada.kwh;
 
-    // Lista para armazenar as empresas com os valores calculados
     const empresasComValores: EmpresaCalculada[] = empresas.map((empresa) => {
-      // Valor estimado da conta com a empresa
       const valorEstimado = custoPorKwh * empresa.kwh;
 
-      // Diferença percentual em relação ao valor atual
       const diferencaPercentual =
         ((valorEstimado - valorContaNumero) / valorContaNumero) * 100;
 
-      // Determinar se é mais barato, mais caro ou igual
       let status: "maisBarato" | "maisCaro" | "igual";
       if (valorEstimado < valorContaNumero) {
         status = "maisBarato";
@@ -105,10 +99,8 @@ export default function Home() {
       };
     });
 
-    // Ordenar as empresas pelo valor estimado (do menor para o maior)
     empresasComValores.sort((a, b) => a.valorEstimado - b.valorEstimado);
 
-    // Atualizar o estado
     setEmpresasCalculadas(empresasComValores);
   };
 

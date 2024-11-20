@@ -21,10 +21,8 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
-        // Salvar informações necessárias no localStorage
         localStorage.setItem("empresaLogada", JSON.stringify(data));
-        // Redirecionar para a próxima página
-        window.location.href = "/pagina-empresa"; // Redireciona para '/pagina-empresa'
+        window.location.href = "/pagina-empresa"; 
       } else {
         const errorData = await response.json();
         alert(errorData.message || "CNPJ ou senha inválidos");

@@ -3,13 +3,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Empresa, Login } from "@/types/type"; // Ajuste o caminho conforme a estrutura do seu projeto
+import { Empresa, Login } from "@/types/type"; 
 
 export default function CadastroEmpresa() {
   const tiposDeEnergia = ["Solar", "Eólica", "Hidrelétrica", "Fóssil"];
   const estados = ["SP", "RJ", "MG", "BA"];
 
-  // Estados para os dados da empresa e login
+  
   const [empresa, setEmpresa] = useState<Empresa>({
     nome: "",
     cnpj: "",

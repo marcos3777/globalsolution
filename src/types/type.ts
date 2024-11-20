@@ -1,5 +1,5 @@
 export interface Empresa {
-    id?: number; // Opcional, pois é gerado pelo banco de dados
+    id?: number; 
     nome: string;
     cnpj: string;
     estado: string;
@@ -9,7 +9,7 @@ export interface Empresa {
   }
   
   export interface Login {
-    id?: number; // Opcional, pois é gerado pelo banco de dados
+    id?: number; 
     cnpj: string;
     senha: string;
     empresa: Empresa;
