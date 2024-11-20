@@ -6,18 +6,15 @@ import { Empresa } from "@/types/type";
 import TipoEnergia from "@/components/TipoEnergia";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import { MapIcon, BuildingOfficeIcon, BoltIcon } from "@heroicons/react/24/solid";
 
 export default function Home() {
   const [estado, setEstado] = useState<string>("");
   const [empresas, setEmpresas] = useState<Empresa[]>([]);
   const [empresaAtual, setEmpresaAtual] = useState<string>("");
-  const [empresaSelecionada, setEmpresaSelecionada] = useState<Empresa | null>(
-    null
-  );
+  const [empresaSelecionada, setEmpresaSelecionada] = useState<Empresa | null>(null);
   const [valorConta, setValorConta] = useState<string>("");
-  const [empresasCalculadas, setEmpresasCalculadas] = useState<
-    EmpresaCalculada[]
-  >([]);
+  const [empresasCalculadas, setEmpresasCalculadas] = useState<EmpresaCalculada[]>([]);
 
   type EmpresaCalculada = Empresa & {
     valorEstimado: number;
@@ -29,7 +26,6 @@ export default function Home() {
 
   useEffect(() => {
     if (estado) {
-
       fetch(`http://localhost:8080/api/empresas/estado/${estado}`)
         .then((response) => response.json())
         .then((data: Empresa[]) => {
@@ -128,67 +124,76 @@ export default function Home() {
         {/* Dropdowns */}
         <div className="flex flex-wrap justify-center gap-8 mb-12">
           {/* Seleção de Estado */}
-          <div>
+          <div className="relative">
             <label htmlFor="estado" className="block text-lg font-bold mb-2">
               Selecione seu estado
             </label>
-            <select
-              id="estado"
-              value={estado}
-              onChange={(e) => setEstado(e.target.value)}
-              className="w-64 p-3 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-green-500 focus:outline-none"
-            >
-              <option value="" disabled>
-                Estado
-              </option>
-              {estados.map((estado) => (
-                <option key={estado} value={estado}>
-                  {estado}
+            <div className="relative">
+              <MapIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 pointer-events-none" />
+              <select
+                id="estado"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+                className="w-64 p-3 pl-10 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-green-500 focus:outline-none appearance-none"
+              >
+                <option value="" disabled>
+                  Estado
                 </option>
-              ))}
-            </select>
+                {estados.map((estado) => (
+                  <option key={estado} value={estado}>
+                    {estado}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Seleção de Empresa */}
-          <div>
+          <div className="relative">
             <label htmlFor="empresa" className="block text-lg font-bold mb-2">
               Escolha sua empresa atual
             </label>
-            <select
-              id="empresa"
-              value={empresaAtual}
-              onChange={handleEmpresaChange}
-              className="w-64 p-3 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-green-500 focus:outline-none"
-              disabled={empresas.length === 0}
-            >
-              <option value="" disabled>
-                Sua empresa atual
-              </option>
-              {empresas.map((empresa) => (
-                <option
-                  key={empresa.id ?? ""}
-                  value={empresa.id?.toString() ?? ""}
-                >
-                  {empresa.nome}
+            <div className="relative">
+              <BuildingOfficeIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 pointer-events-none" />
+              <select
+                id="empresa"
+                value={empresaAtual}
+                onChange={handleEmpresaChange}
+                className="w-64 p-3 pl-10 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-green-500 focus:outline-none appearance-none"
+                disabled={empresas.length === 0}
+              >
+                <option value="" disabled>
+                  Sua empresa atual
                 </option>
-              ))}
-            </select>
+                {empresas.map((empresa) => (
+                  <option
+                    key={empresa.id ?? ""}
+                    value={empresa.id?.toString() ?? ""}
+                  >
+                    {empresa.nome}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Valor da Última Conta de Luz e Botão Calcular */}
-          <div>
+          <div className="relative">
             <label htmlFor="valorConta" className="block text-lg font-bold mb-2">
               Valor da sua última conta de luz
             </label>
             <div className="flex">
-              <input
-                id="valorConta"
-                type="number"
-                value={valorConta}
-                onChange={(e) => setValorConta(e.target.value)}
-                placeholder="Digite o valor"
-                className="w-48 p-3 rounded-l-md bg-gray-800 text-white focus:ring-2 focus:ring-green-500 focus:outline-none"
-              />
+              <div className="relative w-48">
+                <BoltIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 pointer-events-none" />
+                <input
+                  id="valorConta"
+                  type="number"
+                  value={valorConta}
+                  onChange={(e) => setValorConta(e.target.value)}
+                  placeholder="Digite o valor"
+                  className="w-full p-3 pl-10 rounded-l-md bg-gray-800 text-white focus:ring-2 focus:ring-green-500 focus:outline-none"
+                />
+              </div>
               <button
                 onClick={calcularValores}
                 className="bg-green-500 text-white font-semibold py-2 px-4 rounded-r-md hover:bg-green-600 transition-colors"
