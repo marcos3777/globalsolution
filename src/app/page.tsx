@@ -6,7 +6,7 @@ import { Empresa } from "@/types/type";
 import TipoEnergia from "@/components/TipoEnergia";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { MapIcon, BuildingOfficeIcon, BoltIcon } from "@heroicons/react/24/solid";
+import { MapIcon, BuildingOfficeIcon, BoltIcon, IdentificationIcon } from "@heroicons/react/24/solid";
 
 export default function Home() {
   const [estado, setEstado] = useState<string>("");
@@ -209,13 +209,16 @@ export default function Home() {
           <div className="mb-12 text-center bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-3xl mx-auto">
             <h2 className="text-2xl font-bold mb-4">Sua Empresa Atual</h2>
             <p className="text-lg font-bold">{empresaSelecionada.nome}</p>
-            <p className="text-sm text-gray-300 mb-2">
+            <p className="text-sm text-gray-300 mb-2 flex items-center gap-2">
+              <IdentificationIcon className="h-5 w-5 text-gray-400" />
               CNPJ: {empresaSelecionada.cnpj}
             </p>
-            <p className="text-sm text-gray-300 mb-2">
+            <p className="text-sm text-gray-300 mb-2 flex items-center gap-2">
+              <MapIcon className="h-5 w-5 text-gray-400" />
               Estado: {empresaSelecionada.estado}
             </p>
-            <p className="text-sm text-gray-300 mb-2">
+            <p className="text-sm text-gray-300 mb-2 flex items-center gap-2">
+              <BoltIcon className="h-5 w-5 text-gray-400" />
               KWH: {empresaSelecionada.kwh}
             </p>
             <p className="text-sm text-gray-300 mb-2 flex items-center gap-2 justify-center">
@@ -241,12 +244,21 @@ export default function Home() {
                   key={empresa.id}
                   className="bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center"
                 >
-                  <h2 className="text-2xl font-bold mb-4">{empresa.nome}</h2>
-                  <p className="text-sm text-gray-400 mb-2">
+                  <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <BuildingOfficeIcon className="h-6 w-6 text-purple-500" />
+                    {empresa.nome}
+                  </h2>
+                  <p className="text-sm text-gray-400 mb-2 flex items-center gap-2">
+                    <IdentificationIcon className="h-5 w-5 text-gray-400" />
                     CNPJ: {empresa.cnpj}
                   </p>
-                  <p className="text-sm text-gray-400 mb-2">
+                  <p className="text-sm text-gray-400 mb-2 flex items-center gap-2">
+                    <MapIcon className="h-5 w-5 text-gray-400" />
                     Estado: {empresa.estado}
+                  </p>
+                  <p className="text-sm text-gray-400 mb-2 flex items-center gap-2">
+                    <BoltIcon className="h-5 w-5 text-gray-400" />
+                    KWH: {empresa.kwh}
                   </p>
                   <p className="text-sm text-gray-400 mb-2 flex items-center gap-2">
                     Tipo de Energia:{" "}
