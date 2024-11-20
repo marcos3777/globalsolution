@@ -2,10 +2,14 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [cnpj, setCnpj] = useState("");
   const [senha, setSenha] = useState("");
+
+  const navigate = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +26,7 @@ export default function LoginPage() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("empresaLogada", JSON.stringify(data));
-        window.location.href = "/pagina-empresa"; 
+        navigate.push("/pagina-empresa"); // Usando navigate.push para redirecionar
       } else {
         const errorData = await response.json();
         alert(errorData.message || "CNPJ ou senha inválidos");
@@ -93,12 +97,12 @@ export default function LoginPage() {
         <div className="mt-6 text-center">
           <p className="text-white">
             Ainda não tem conta?{" "}
-            <a
+            <Link
               href="/cadastro"
               className="text-green-400 font-bold hover:underline"
             >
               Cadastre-se aqui
-            </a>
+            </Link>
           </p>
         </div>
       </div>
