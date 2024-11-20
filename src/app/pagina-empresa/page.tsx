@@ -7,7 +7,21 @@ import Link from "next/link";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 export default function EmpresaPage() {
-  const [empresaLogada, setEmpresaLogada] = useState<any>(null);
+  interface Empresa {
+    id: string;
+    nome: string;
+    cnpj: string;
+    email: string;
+    estado: string;
+    kwh: string;
+    tipoEnergia: string;
+  }
+
+  interface EmpresaLogada {
+    empresa: Empresa;
+  }
+
+  const [empresaLogada, setEmpresaLogada] = useState<EmpresaLogada | null>(null);
   const navigate = useRouter(); 
 
   useEffect(() => {

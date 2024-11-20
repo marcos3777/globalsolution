@@ -49,7 +49,7 @@ export default function CadastroEmpresa() {
       });
 
       if (response.ok) {
-        const result = await response.json();
+        await response.json();
         setMensagem("Cadastro realizado com sucesso!");
         setEmpresa({
           nome: "",
