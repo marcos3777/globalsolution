@@ -11,7 +11,7 @@
 <summary>Veja os links relacionados ao projeto:</summary>
 
 - YouTube  
-- Vercel: https://vercel.com/marcos-projects-901f8433/globalsolution
+- Vercel: https://globalsolution-ten.vercel.app/
 - GitHub API Java: https://github.com/marcos3777/globalJava  
 
 </details>
