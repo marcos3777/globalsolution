@@ -35,3 +35,17 @@ const Dashboard = () => {
       </button>
       
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      
+      {grafico ? (
+        <div>
+          <h2>Gráfico de Consumo de Energia</h2>
+          <img src={`data:image/png;base64,${grafico}`} alt="Gráfico de Consumo de Energia" />
+        </div>
+      ) : (
+        <p>Não foi possível carregar o gráfico</p>
+      )}
+    </div>
+  );
+};
+
+export default Dashboard;
