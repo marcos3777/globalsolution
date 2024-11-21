@@ -16,6 +16,10 @@ export default function Home() {
   const [valorConta, setValorConta] = useState<string>("");
   const [empresasCalculadas, setEmpresasCalculadas] = useState<EmpresaCalculada[]>([]);
 
+  // Estados para o Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+
   type EmpresaCalculada = Empresa & {
     valorEstimado: number;
     diferencaPercentual: number;
@@ -58,22 +62,22 @@ export default function Home() {
 
   const calcularValores = () => {
     if (!empresaSelecionada || !valorConta) {
-      alert(
-        "Por favor, selecione sua empresa atual e insira o valor da conta de luz."
-      );
+      setModalMessage("Por favor, selecione sua empresa atual e insira o valor da conta de luz.");
+      setIsModalOpen(true);
       return;
     }
 
     const valorContaNumero = parseFloat(valorConta);
     if (isNaN(valorContaNumero) || valorContaNumero <= 0) {
-      alert("Por favor, insira um valor válido para a conta de luz.");
+      setModalMessage("Por favor, insira um valor válido para a conta de luz.");
+      setIsModalOpen(true);
       return;
     }
 
-    const custoPorKwh = valorContaNumero / empresaSelecionada.kwh;
+    const custoPorKwh = valorContaNumero / parseFloat(empresaSelecionada.kwh.toString());
 
     const empresasComValores: EmpresaCalculada[] = empresas.map((empresa) => {
-      const valorEstimado = custoPorKwh * empresa.kwh;
+      const valorEstimado = custoPorKwh * parseFloat(empresa.kwh.toString());
 
       const diferencaPercentual =
         ((valorEstimado - valorContaNumero) / valorContaNumero) * 100;
@@ -309,6 +313,38 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      {/* Componente Modal */}
+      {isModalOpen && (
+        <Modal
+          message={modalMessage}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </main>
   );
 }
+
+// Componente Modal
+interface ModalProps {
+  message: string;
+  onClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ message, onClose }) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+        <p className="text-white mb-4">{message}</p>
+        <div className="flex justify-end space-x-4">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
