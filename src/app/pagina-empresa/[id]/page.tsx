@@ -18,6 +18,11 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
     tipoEnergia: "",
   });
 
+  // Estados para o Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
   useEffect(() => {
     const fetchEmpresa = async () => {
       try {
@@ -55,18 +60,20 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
           estado: empresa.estado,
           kwh: empresa.kwh,
           tipoEnergia: empresa.tipoEnergia,
-        }), 
+        }),
       });
 
       if (response.ok) {
-        alert("Empresa alterada com sucesso");
+        // Substituir o alert por um modal de sucesso
+        setModalMessage("Empresa alterada com sucesso!");
+        setIsSuccess(true);
+        setIsModalOpen(true);
 
         const updatedEmpresa = { ...empresa };
         const empresaLogada = JSON.parse(localStorage.getItem("empresaLogada") || "{}");
         empresaLogada.empresa = updatedEmpresa;
         localStorage.setItem("empresaLogada", JSON.stringify(empresaLogada));
 
-   
         setEmpresa({
           id: 0,
           nome: "",
@@ -77,16 +84,19 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
           tipoEnergia: "",
         });
 
-
-        navigate.push("/pagina-empresa");
+        // Redirecionar após 1 segundo
+        setTimeout(() => {
+          navigate.push("/pagina-empresa");
+        }, 1000);
       } else {
         console.error("Falha ao realizar a alteração");
+        // Opcional: Você pode adicionar um modal de erro aqui
       }
     } catch (error) {
       console.error("Falha ao realizar a alteração: ", error);
+      // Opcional: Você pode adicionar um modal de erro aqui
     }
   };
-
 
   return (
     <div className="bg-gradient-to-b from-blue-900 to-black min-h-screen flex flex-col items-center justify-center p-6 text-white font-inter">
@@ -186,6 +196,50 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
           </div>
         </form>
       </div>
+
+      {/* Componente Modal */}
+      {isModalOpen && (
+        <Modal
+          message={modalMessage}
+          isSuccess={isSuccess}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
+
+// Componente Modal
+interface ModalProps {
+  message: string;
+  isSuccess: boolean;
+  onClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ message, isSuccess, onClose }) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div
+        className={`bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 max-w-md ${
+          isSuccess ? "border-t-4 border-green-500" : "border-t-4 border-red-500"
+        }`}
+      >
+        <p className={`text-white text-lg ${isSuccess ? "" : "text-red-400"}`}>
+          {message}
+        </p>
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={onClose}
+            className={`px-4 py-2 rounded ${
+              isSuccess
+                ? "bg-green-500 hover:bg-green-600"
+                : "bg-red-500 hover:bg-red-600"
+            } text-white transition-colors`}
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
