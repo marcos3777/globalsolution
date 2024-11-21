@@ -18,7 +18,6 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
     tipoEnergia: "",
   });
 
-  // Estados para o Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -31,10 +30,14 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
           const data: Empresa = await response.json();
           setEmpresa(data);
         } else {
-          console.error("Erro ao buscar empresa");
+          setModalMessage("Erro ao buscar empresa.");
+          setIsSuccess(false);
+          setIsModalOpen(true);
         }
-      } catch (err) {
-        console.error("Erro ao buscar empresa:", err);
+      } catch {
+        setModalMessage("Erro ao buscar empresa.");
+        setIsSuccess(false);
+        setIsModalOpen(true);
       }
     };
     fetchEmpresa();
@@ -64,7 +67,7 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
       });
 
       if (response.ok) {
-        // Substituir o alert por um modal de sucesso
+      
         setModalMessage("Empresa alterada com sucesso!");
         setIsSuccess(true);
         setIsModalOpen(true);
@@ -84,17 +87,21 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
           tipoEnergia: "",
         });
 
-        // Redirecionar após 1 segundo
+       
         setTimeout(() => {
           navigate.push("/pagina-empresa");
         }, 1000);
       } else {
-        console.error("Falha ao realizar a alteração");
-        // Opcional: Você pode adicionar um modal de erro aqui
+      
+        setModalMessage("Falha ao realizar a alteração.");
+        setIsSuccess(false);
+        setIsModalOpen(true);
       }
-    } catch (error) {
-      console.error("Falha ao realizar a alteração: ", error);
-      // Opcional: Você pode adicionar um modal de erro aqui
+    } catch {
+    
+      setModalMessage("Falha ao realizar a alteração.");
+      setIsSuccess(false);
+      setIsModalOpen(true);
     }
   };
 

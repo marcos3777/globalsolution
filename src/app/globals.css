@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 :root {
   --background: #ffffff;
@@ -22,11 +22,314 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.main-container {
+  background: linear-gradient(to bottom, #1e3a8a, #000000);
+  min-height: 100vh;
+  padding: 1.5rem;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-container {
+  width: 100%;
+  max-width: 80rem;
+}
+
+.main-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.dropdowns-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.dropdown-item {
+  position: relative;
+}
+
+.dropdown-label {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown-input-container {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  height: 1.25rem;
+  width: 1.25rem;
+  pointer-events: none;
+}
+
+.dropdown-select {
+  width: 16rem;
+  padding: 0.75rem;
+  padding-left: 2.5rem;
+  border-radius: 0.375rem;
+  background-color: #1f2937;
+  color: #ffffff;
+  appearance: none;
+  outline: none;
+}
+
+.input-button-container {
+  display: flex;
+}
+
+.input-container {
+  position: relative;
+  width: 12rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  padding-left: 2.5rem;
+  border-radius: 0.375rem 0 0 0.375rem;
+  background-color: #1f2937;
+  color: #ffffff;
+  outline: none;
+}
+
+.calculate-button {
+  background-color: #10b981;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calculate-button:hover {
+  background-color: #059669;
+}
+
+.empresa-selecionada-container {
+  margin-bottom: 3rem;
+  text-align: center;
+  background-color: #1f2937;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empresa-selecionada-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.empresa-selecionada-nome {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.empresa-selecionada-info {
+  font-size: 0.875rem;
+  color: #d1d5db;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.empresa-selecionada-consumo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #d1d5db;
+  margin-top: 1rem;
+}
+
+.empresas-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 80rem;
+}
+
+@media (min-width: 640px) {
+  .empresas-container {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .transition-shadow {
-    transition: box-shadow 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+  .empresas-container {
+    grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.empresa-card {
+  background-color: #1f2937;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.empresa-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.empresa-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon-large {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #a855f7;
+}
+
+.empresa-card-info {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.empresa-card-valor-estimado {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.text-green-500 {
+  color: #10b981;
+}
+
+.text-red-500 {
+  color: #ef4444;
+}
+
+.text-yellow-500 {
+  color: #f59e0b;
+}
+
+.empresa-card-diferenca {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.empresa-card-button {
+  background: linear-gradient(to right, #a855f7, #ec4899);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.empresa-card-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.modal-container {
+  background-color: #1f2937;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 91.666667%;
+  max-width: 28rem;
+}
+
+.modal-message {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-close-button {
+  padding: 0.5rem 1rem;
+  background-color: #4b5563;
+  color: #ffffff;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.modal-close-button:hover {
+  background-color: #374151;
+}
+
+.icon-small {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #9ca3af;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+.editar-empresa-input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  background-color: #374151;
+  color: #ffffff;
+  outline: none;
+}
+
+.editar-empresa-input:focus {
+  box-shadow: 0 0 0 2px #10b981;
+}
+
+.laabel-empresa{
+  color: #d1d5db;
+  margin-bottom: 0.5rem;
+
+
 }

@@ -24,7 +24,7 @@ export default function EmpresaPage() {
   const [empresaLogada, setEmpresaLogada] = useState<EmpresaLogada | null>(null);
   const navigate = useRouter();
 
-  // Estados para o Modal
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<{
     title: string;
@@ -48,7 +48,7 @@ export default function EmpresaPage() {
   const handleDelete = async () => {
     if (!empresaLogada) return;
 
-    // Configurar o conteúdo do modal para confirmação
+    
     setModalContent({
       title: "Confirmação de Exclusão",
       message:
@@ -130,16 +130,16 @@ export default function EmpresaPage() {
               </button>
             </div>
           </div>
-          <p className="text-gray-300 mb-2">
+          <p className="laabel-empresa">
             <span className="font-bold">CNPJ:</span> {empresa.cnpj}
           </p>
-          <p className="text-gray-300 mb-2">
+          <p className="laabel-empresa">
             <span className="font-bold">Email:</span> {empresa.email}
           </p>
-          <p className="text-gray-300 mb-2">
+          <p className="laabel-empresa">
             <span className="font-bold">Estado:</span> {empresa.estado}
           </p>
-          <p className="text-gray-300 mb-2">
+          <p className="laabel-empresa">
             <span className="font-bold">Custo atual KWH:</span> {empresa.kwh}
           </p>
           <p className="text-gray-300">
