@@ -12,7 +12,7 @@ const Dashboard = () => {
       const data = await response.json();
       
       if (data.grafico) {
-        setGrafico(data.grafico); // Armazena o gráfico
+        setGrafico(data.grafico); // Armazena o gráfico Base64
       } else {
         setError('Erro ao carregar gráfico');
       }
@@ -26,3 +26,12 @@ const Dashboard = () => {
   useEffect(() => {
     fetchGrafico();
   }, []);
+
+  return (
+    <div>
+      <h1>Dashboard de Consumo de Energia</h1>
+      <button onClick={fetchGrafico} disabled={loading}>
+        {loading ? 'Carregando...' : 'Gerar Gráfico'}
+      </button>
+      
+      {error && <p style={{ color: 'red' }}>{error}</p>}
