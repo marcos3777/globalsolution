@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function Integrantes() {
   const membros = [
     {
-      nome: "Marcos Vinicius Pereira de Oliveira",
+      nome: "Marcos V. P. de Oliveira",
       rm: "RM557252",
       foto: "/marcos.png",
       github: "https://github.com/marcos3777",
@@ -16,12 +16,12 @@ export default function Integrantes() {
     {
       nome: "Felipe Melo de Sousa",
       rm: "RM556099",
-      foto: "/felipe.png",
-      github: "#",
-      linkedin: "#",
+      foto: "/felipe.jpg",
+      github: "https://github.com/fmelods",
+      linkedin: "https://www.linkedin.com/in/felipe-melo-de-sousa/",
     },
     {
-      nome: "Leonardo Matheus Teixeira",
+      nome: "Leonardo M. Teixeira",
       rm: "RM556629",
       foto: "/leonardo.jpeg",
       github: "#",
