@@ -10,8 +10,8 @@ export default function Integrantes() {
       nome: "Marcos Vinicius Pereira de Oliveira",
       rm: "RM557252",
       foto: "/marcos.png",
-      github: "#",
-      linkedin: "#",
+      github: "https://github.com/marcos3777",
+      linkedin: "https://www.linkedin.com/in/marcos-v-oliveiraa/",
     },
     {
       nome: "Felipe Melo de Sousa",
