@@ -1,6 +1,6 @@
 // app/dashboard/page.tsx
 import React from "react";
-import Dashboard from "../../components/Dashboard/Dashboard"; // Ajuste o caminho, se necessário
+import Dashboard from "../../components/Dashboard/Dashboard";
 
 const DashboardPage = () => {
   return (
