@@ -93,7 +93,7 @@ export default function CadastroEmpresa() {
 
   return (
     <main className="bg-gradient-to-b from-blue-900 to-black min-h-screen p-6 text-white flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-8">(Página quando clicar seja parceira)</h1>
+      <h1 className="text-3xl font-bold mb-8">Cadastro da Empresa para entrar na fila</h1>
 
       <form
         className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full space-y-4"
