@@ -30,3 +30,46 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     fetchGrafico();
   }, []);
+
+  return (
+    <div style={{ padding: "20px", textAlign: "center" }}>
+      <h1 style={{ fontSize: "3rem", color: "#333", fontWeight: "bold" }}>Dashboard</h1>
+      {carregando ? (
+        <p>Carregando gráfico...</p>
+      ) : erro ? (
+        <p style={{ color: "red" }}>{erro}</p>
+      ) : (
+        grafico && (
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+            <img
+              src={grafico}
+              alt="Gráfico gerado pelo backend"
+              style={{
+                maxWidth: "90%",
+                maxHeight: "90%",
+                objectFit: "contain",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+        )
+      )}
+      <button
+        onClick={fetchGrafico}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#007BFF",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Recarregar Gráfico
+      </button>
+    </div>
+  );
+};
+
+export default Dashboard;
