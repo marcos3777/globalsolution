@@ -1,4 +1,4 @@
-# EnergSystem
+# EnerSystem
 
 ## Equipe
 - **Marcos Vinicius Pereira de Oliveira - RM557252**
@@ -10,7 +10,7 @@
 <details>
 <summary>Veja os links relacionados ao projeto:</summary>
 
-- YouTube  
+- YouTube: https://youtu.be/QwU_LV3vIEE 
 - Vercel: https://globalsolution-ten.vercel.app/
 - GitHub API Java: https://github.com/marcos3777/globalJava  
 
