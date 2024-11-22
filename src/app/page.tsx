@@ -301,9 +301,6 @@ export default function Home() {
                     </p>
                   </>
                 )}
-                <button className="empresa-card-button">
-                  Escolher esta empresa
-                </button>
               </div>
             ))}
         </div>

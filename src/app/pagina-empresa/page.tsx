@@ -55,7 +55,7 @@ export default function EmpresaPage() {
         "Tem certeza que deseja excluir sua conta? Você será redirecionado para a página inicial e precisará realizar o cadastro novamente.",
       onConfirm: async () => {
         try {
-          const response = await fetch(`/api/empresas/${empresaLogada.empresa.id}`, {
+          const response = await fetch(`http://localhost:8080/api/empresas/${empresaLogada.empresa.id}`, {
             method: "DELETE",
           });
 
