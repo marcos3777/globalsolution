@@ -1,3 +1,5 @@
+/* global.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,27 +18,182 @@
   }
 }
 
-
-
-
-.notfound-container {
-  @apply min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-900 to-black text-white p-6;
+@layer utilities {
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
 }
 
-.notfound-title {
-  @apply text-6xl font-extrabold mb-4;
+body {
+  @apply text-[var(--foreground)] bg-[var(--background)] font-inter;
 }
 
-.notfound-subtitle {
-  @apply text-3xl font-semibold mb-6;
+.main-container {
+  @apply bg-gradient-to-b from-blue-900 to-black min-h-screen p-6 text-white flex flex-col items-center;
 }
 
-.notfound-text {
-  @apply text-lg mb-8;
+.content-container {
+  @apply w-full max-w-[80rem];
 }
 
-.notfound-link {
-  @apply px-6 py-3 bg-green-500 rounded-md text-white font-bold hover:bg-green-600 transition;
+.main-title {
+  @apply text-3xl font-extrabold mb-12 text-center;
+}
+
+.dropdowns-container {
+  @apply flex flex-wrap justify-center gap-8 mb-12;
+}
+
+.dropdown-item {
+  @apply relative;
+}
+
+.dropdown-label {
+  @apply block text-lg font-bold mb-2;
+}
+
+.dropdown-input-container {
+  @apply relative;
+}
+
+.icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5 pointer-events-none;
+}
+
+.dropdown-select {
+  @apply w-64 py-3 pl-10 rounded-md bg-gray-800 text-white outline-none appearance-none;
+}
+
+.input-button-container {
+  @apply flex;
+}
+
+.input-container {
+  @apply relative w-48;
+}
+
+.input-field {
+  @apply w-full py-3 pl-10 rounded-l-md bg-gray-800 text-white outline-none;
+}
+
+.calculate-button {
+  @apply bg-green-500 text-white font-semibold py-2 px-4 rounded-r-md cursor-pointer transition;
+}
+
+.calculate-button:hover {
+  @apply bg-green-600;
+}
+
+.empresa-selecionada-container {
+  @apply mb-12 text-center bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-3xl mx-auto;
+}
+
+.empresa-selecionada-title {
+  @apply text-lg font-bold mb-4;
+}
+
+.empresa-selecionada-nome {
+  @apply text-base font-bold;
+}
+
+.empresa-selecionada-info {
+  @apply text-sm text-gray-400 mb-2 flex items-center gap-2 justify-center;
+}
+
+.empresa-selecionada-consumo {
+  @apply text-base font-bold text-gray-400 mt-4;
+}
+
+.empresas-container {
+  @apply grid gap-8 w-full max-w-[80rem];
+}
+
+@media (min-width: 640px) {
+  .empresas-container {
+    @apply grid-cols-2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .empresas-container {
+    @apply grid-cols-3;
+  }
+}
+
+.empresa-card {
+  @apply bg-gray-800 p-8 rounded-xl shadow-lg flex flex-col items-center transition duration-300;
+}
+
+.empresa-card:hover {
+  @apply shadow-2xl;
+}
+
+.empresa-card-title {
+  @apply text-lg font-bold mb-4 flex items-center gap-2;
+}
+
+.icon-large {
+  @apply h-6 w-6 text-purple-500;
+}
+
+.empresa-card-info {
+  @apply text-sm text-gray-400 mb-2 flex items-center gap-2;
+}
+
+.empresa-card-valor-estimado {
+  @apply text-base font-bold mb-2 underline cursor-pointer;
+}
+
+.empresa-card-diferenca {
+  @apply text-sm text-gray-400 mb-4;
+}
+
+.empresa-card-button {
+  @apply bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300;
+}
+
+.empresa-card-button:hover {
+  @apply scale-105 shadow-2xl;
+}
+
+.modal-overlay {
+  @apply fixed inset-0 flex items-center justify-center bg-black/50 z-50;
+}
+
+.modal-container {
+  @apply bg-gray-800 rounded-md shadow-lg p-6 w-11/12 max-w-sm;
+}
+
+.modal-message {
+  @apply text-white mb-4;
+}
+
+.modal-buttons {
+  @apply flex justify-end gap-4;
+}
+
+.modal-close-button {
+  @apply py-2 px-4 bg-gray-600 text-white rounded-md transition;
+}
+
+.modal-close-button:hover {
+  @apply bg-gray-700;
+}
+
+.icon-small {
+  @apply h-5 w-5 text-gray-400;
+}
+
+.editar-empresa-input {
+  @apply w-full py-3 rounded-md bg-gray-700 text-white outline-none;
+}
+
+.editar-empresa-input:focus {
+  @apply shadow-[0_0_0_2px_#10b981];
+}
+
+.laabel-empresa {
+  @apply text-gray-400 mb-2;
 }
 
 
@@ -44,12 +201,10 @@
   @apply flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-b from-blue-900 to-black text-white;
 }
 
-/* Título da Página */
 .integrantes-title {
   @apply text-4xl font-bold mb-8;
 }
 
-/* Grid de Integrantes */
 .integrantes-grid {
   @apply grid grid-cols-1 gap-8 w-full max-w-4xl;
 }
@@ -66,17 +221,14 @@
   }
 }
 
-/* Card de Integrante */
 .integrante-card {
   @apply bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center transition-transform transform hover:scale-105;
 }
 
-/* Foto do Integrante */
 .integrante-foto {
   @apply w-32 h-32 object-cover rounded-full mb-4;
 }
 
-/* Informações do Integrante */
 .integrante-info {
   @apply text-center mb-4;
 }
@@ -93,329 +245,10 @@
   @apply text-sm text-gray-400;
 }
 
-/* Links do Integrante */
 .integrante-links {
   @apply flex gap-4;
 }
 
 .integrante-link {
   @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-600 transition;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Inter', sans-serif;
-}
-
-.main-container {
-  background: linear-gradient(to bottom, #1e3a8a, #000000);
-  min-height: 100vh;
-  padding: 1.5rem;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.content-container {
-  width: 100%;
-  max-width: 80rem;
-}
-
-.main-title {
-  font-size: 2.25rem;
-  font-weight: 800;
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.dropdowns-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.dropdown-item {
-  position: relative;
-}
-
-.dropdown-label {
-  display: block;
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.dropdown-input-container {
-  position: relative;
-}
-
-.icon {
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  height: 1.25rem;
-  width: 1.25rem;
-  pointer-events: none;
-}
-
-.dropdown-select {
-  width: 16rem;
-  padding: 0.75rem;
-  padding-left: 2.5rem;
-  border-radius: 0.375rem;
-  background-color: #1f2937;
-  color: #ffffff;
-  appearance: none;
-  outline: none;
-}
-
-.input-button-container {
-  display: flex;
-}
-
-.input-container {
-  position: relative;
-  width: 12rem;
-}
-
-.input-field {
-  width: 100%;
-  padding: 0.75rem;
-  padding-left: 2.5rem;
-  border-radius: 0.375rem 0 0 0.375rem;
-  background-color: #1f2937;
-  color: #ffffff;
-  outline: none;
-}
-
-.calculate-button {
-  background-color: #10b981;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 0 0.375rem 0.375rem 0;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.calculate-button:hover {
-  background-color: #059669;
-}
-
-.empresa-selecionada-container {
-  margin-bottom: 3rem;
-  text-align: center;
-  background-color: #1f2937;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 48rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.empresa-selecionada-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.empresa-selecionada-nome {
-  font-size: 1.125rem;
-  font-weight: 700;
-}
-
-.empresa-selecionada-info {
-  font-size: 0.875rem;
-  color: #d1d5db;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.empresa-selecionada-consumo {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #d1d5db;
-  margin-top: 1rem;
-}
-
-.empresas-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  width: 100%;
-  max-width: 80rem;
-}
-
-@media (min-width: 640px) {
-  .empresas-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .empresas-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.empresa-card {
-  background-color: #1f2937;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: box-shadow 0.3s ease;
-}
-
-.empresa-card:hover {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-.empresa-card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.icon-large {
-  height: 1.5rem;
-  width: 1.5rem;
-  color: #a855f7;
-}
-
-.empresa-card-info {
-  font-size: 0.875rem;
-  color: #9ca3af;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.empresa-card-valor-estimado {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.text-green-500 {
-  color: #10b981;
-}
-
-.text-red-500 {
-  color: #ef4444;
-}
-
-.text-yellow-500 {
-  color: #f59e0b;
-}
-
-.empresa-card-diferenca {
-  font-size: 0.875rem;
-  color: #9ca3af;
-  margin-bottom: 1rem;
-}
-
-.empresa-card-button {
-  background: linear-gradient(to right, #a855f7, #ec4899);
-  color: #ffffff;
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  border-radius: 9999px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.empresa-card-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 50;
-}
-
-.modal-container {
-  background-color: #1f2937;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  width: 91.666667%;
-  max-width: 28rem;
-}
-
-.modal-message {
-  color: #ffffff;
-  margin-bottom: 1rem;
-}
-
-.modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-
-.modal-close-button {
-  padding: 0.5rem 1rem;
-  background-color: #4b5563;
-  color: #ffffff;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s;
-}
-
-.modal-close-button:hover {
-  background-color: #374151;
-}
-
-.icon-small {
-  height: 1.25rem;
-  width: 1.25rem;
-  color: #9ca3af;
-}
-
-.font-inter {
-  font-family: 'Inter', sans-serif;
-}
-.editar-empresa-input {
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 0.375rem;
-  background-color: #374151;
-  color: #ffffff;
-  outline: none;
-}
-
-.editar-empresa-input:focus {
-  box-shadow: 0 0 0 2px #10b981;
-}
-
-.laabel-empresa{
-  color: #d1d5db;
-  margin-bottom: 0.5rem;
-
-
 }

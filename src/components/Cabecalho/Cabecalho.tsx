@@ -14,7 +14,7 @@ const Cabecalho = () => {
     setMenuAberto(!menuAberto);
   };
 
-  // Fecha o menu ao clicar fora
+  // Feca o menu ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -36,8 +36,8 @@ const Cabecalho = () => {
           <Image
             src="/logo.svg"
             alt="Logo"
-            width={200} // Tamanho da largura do logo
-            height={40} // Tamanho da altura do logo
+            width={200} 
+            height={40} 
             className="object-contain"
           />
         </div>

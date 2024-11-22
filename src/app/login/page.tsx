@@ -13,7 +13,7 @@ export default function LoginPage() {
 
   const navigate = useRouter();
 
-  // Estados para o Modal
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState<boolean>(false);

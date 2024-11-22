@@ -24,8 +24,8 @@ export default function Integrantes() {
       nome: "Leonardo M. Teixeira",
       rm: "RM556629",
       foto: "/leonardo.jpeg",
-      github: "#",
-      linkedin: "#",
+      github: "https://github.com/Leonardo062908",
+      linkedin: "https://www.linkedin.com/in/leonardo-teixeira-a14091277/",
     },
   ];
 
