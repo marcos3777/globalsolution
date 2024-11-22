@@ -44,6 +44,10 @@ const Cabecalho = () => {
         <Link href="http://localhost:3000/" className="text-lg font-bold hover:underline">
           Simulador
         </Link>
+        <Link href="/integrantes" className="text-lg font-bold hover:underline">
+             Integrantes
+          </Link>
+
         <div className="relative" ref={menuRef}>
           <button
             onClick={toggleMenu}
@@ -52,6 +56,8 @@ const Cabecalho = () => {
             Empresa
           </button>
           {menuAberto && <Menu />}
+          
+
         </div>
       </div>
     </header>
@@ -59,3 +65,4 @@ const Cabecalho = () => {
 };
 
 export default Cabecalho;
+

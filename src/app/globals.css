@@ -16,6 +16,92 @@
   }
 }
 
+
+
+
+.notfound-container {
+  @apply min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-900 to-black text-white p-6;
+}
+
+.notfound-title {
+  @apply text-6xl font-extrabold mb-4;
+}
+
+.notfound-subtitle {
+  @apply text-3xl font-semibold mb-6;
+}
+
+.notfound-text {
+  @apply text-lg mb-8;
+}
+
+.notfound-link {
+  @apply px-6 py-3 bg-green-500 rounded-md text-white font-bold hover:bg-green-600 transition;
+}
+
+
+.integrantes-container {
+  @apply flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-b from-blue-900 to-black text-white;
+}
+
+/* Título da Página */
+.integrantes-title {
+  @apply text-4xl font-bold mb-8;
+}
+
+/* Grid de Integrantes */
+.integrantes-grid {
+  @apply grid grid-cols-1 gap-8 w-full max-w-4xl;
+}
+
+@media (min-width: 640px) {
+  .integrantes-grid {
+    @apply grid-cols-2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .integrantes-grid {
+    @apply grid-cols-3;
+  }
+}
+
+/* Card de Integrante */
+.integrante-card {
+  @apply bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center transition-transform transform hover:scale-105;
+}
+
+/* Foto do Integrante */
+.integrante-foto {
+  @apply w-32 h-32 object-cover rounded-full mb-4;
+}
+
+/* Informações do Integrante */
+.integrante-info {
+  @apply text-center mb-4;
+}
+
+.integrante-nome {
+  @apply text-xl font-semibold mb-2;
+}
+
+.integrante-rm {
+  @apply text-sm text-gray-400;
+}
+
+.integrante-turma {
+  @apply text-sm text-gray-400;
+}
+
+/* Links do Integrante */
+.integrante-links {
+  @apply flex gap-4;
+}
+
+.integrante-link {
+  @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-600 transition;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
