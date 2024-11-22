@@ -51,17 +51,21 @@ A aplicação estará disponível em [http://localhost:3000](http://localhost:30
 <details>
 <summary>Passos para instalação do Backend</summary>
 
+Recomendo utilizar IntelliJ
+
 1. Clone o repositório da API:  
    `git clone https://github.com/marcos3777/globalJava`
 
 2. Navegue até o diretório do projeto:  
-   `cd globalJava`
+   `cd java`
 
-3. Altere as variáveis de ambiente para acesso ao banco de dados.  
+3. Abre com IntelliJ de preferencia
+
+4. Altere as variáveis de ambiente para acesso ao banco de dados na classe DatabaseConnection.  
    As informações necessárias estão no arquivo `database-config.txt` (que será fornecido) e também serão disponibilizadas nos comentários da entrega.
 
 
-4. Execute a classe Main do projeto para iniciar a API.
+5. Execute a classe Main do projeto para iniciar a API.
 
 A API estará disponível em [http://localhost:8080](http://localhost:8080).
 
@@ -88,5 +92,7 @@ Use os seguintes dados para teste:
 - **Senha:** senha123  
 
 Observação: Só é possível fazer login com empresas cujo cadastro foi aceito.
+
+- Funcionalidades do CRUD incluidas para alteração e excluir empresa após login.
 
 </details>
