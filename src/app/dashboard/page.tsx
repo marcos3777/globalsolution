@@ -5,7 +5,6 @@ import Dashboard from "../../components/Dashboard/Dashboard"; // Ajuste o caminh
 const DashboardPage = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
       <Dashboard />
     </div>
   );
