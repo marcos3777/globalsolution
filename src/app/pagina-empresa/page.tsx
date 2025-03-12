@@ -5,61 +5,48 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { empresasAPI } from "@/utils/api";
+import { Empresa } from "@/types/type";
 
 export default function EmpresaPage() {
-  interface Empresa {
-    id: string;
-    nome: string;
-    cnpj: string;
-    email: string;
-    estado: string;
-    kwh: string;
-    tipoEnergia: string;
-  }
-
-  interface EmpresaLogada {
-    empresa: Empresa;
-  }
-
-  const [empresaLogada, setEmpresaLogada] = useState<EmpresaLogada | null>(null);
   const navigate = useRouter();
-
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [empresaLogada, setEmpresaLogada] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<{
-    title: string;
+    title?: string;
     message: string;
+    onCancel?: () => void;
     onConfirm?: () => void;
   }>({
-    title: "",
     message: "",
-    onConfirm: undefined,
   });
-
+  
   useEffect(() => {
-    const empresaData = localStorage.getItem("empresaLogada");
-    if (empresaData) {
-      setEmpresaLogada(JSON.parse(empresaData));
+    const empresaLogadaData = localStorage.getItem("empresaLogada");
+    if (empresaLogadaData) {
+      setEmpresaLogada(JSON.parse(empresaLogadaData));
     } else {
       navigate.push("/login");
     }
   }, [navigate]);
 
-  const handleDelete = async () => {
-    if (!empresaLogada) return;
+  const handleLogout = () => {
+    localStorage.removeItem("empresaLogada");
+    navigate.push("/");
+  };
 
-    
+  const handleDelete = async () => {
     setModalContent({
-      title: "Confirmação de Exclusão",
+      title: "Confirmação",
       message:
-        "Tem certeza que deseja excluir sua conta? Você será redirecionado para a página inicial e precisará realizar o cadastro novamente.",
+        "Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.",
+      onCancel: () => {
+        setIsModalOpen(false);
+      },
       onConfirm: async () => {
         try {
-          const response = await fetch(`http://localhost:8080/api/empresas/${empresaLogada.empresa.id}`, {
-            method: "DELETE",
-          });
-
-          if (response.ok) {
+          if (empresaLogada?.empresa?.id) {
+            await empresasAPI.delete(empresaLogada.empresa.id);
             localStorage.removeItem("empresaLogada");
             setModalContent({
               title: "Sucesso",
@@ -70,18 +57,12 @@ export default function EmpresaPage() {
             setTimeout(() => {
               navigate.push("/");
             }, 2000);
-          } else {
-            const errorData = await response.json();
-            setModalContent({
-              title: "Erro",
-              message: errorData.message || "Erro ao excluir a conta. Tente novamente mais tarde.",
-            });
           }
-        } catch (error) {
+        } catch (error: any) {
           console.error("Erro ao excluir a conta:", error);
           setModalContent({
             title: "Erro",
-            message: "Erro ao excluir a conta. Tente novamente mais tarde.",
+            message: error.message || "Erro ao excluir a conta. Tente novamente mais tarde.",
           });
         }
       },

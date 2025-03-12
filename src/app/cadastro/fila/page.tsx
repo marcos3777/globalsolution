@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Empresa } from "@/types/type"; 
+import { empresasAPI } from "@/utils/api";
 
 export default function FilaCadastro() {
   const [modalAberto, setModalAberto] = useState(false);
@@ -14,17 +15,11 @@ export default function FilaCadastro() {
     setCarregando(true);
     setErro(null);
     try {
-      const response = await fetch("http://localhost:8080/api/empresas/pendentes");
-      if (response.ok) {
-        const data: Empresa[] = await response.json();
-        setEmpresasPendentes(data);
-      } else {
-        const errorData = await response.json();
-        setErro(errorData.message || "Erro ao buscar empresas pendentes");
-      }
-    } catch (error) {
+      const data = await empresasAPI.getPendentes();
+      setEmpresasPendentes(data);
+    } catch (error: any) {
       console.error("Erro ao buscar empresas pendentes:", error);
-      setErro("Erro ao buscar empresas pendentes");
+      setErro(error.message || "Erro ao buscar empresas pendentes");
     } finally {
       setCarregando(false);
     }

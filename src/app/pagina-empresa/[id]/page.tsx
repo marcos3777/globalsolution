@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Empresa } from "@/types/type";
+import { empresasAPI } from "@/utils/api";
 
 export default function EditarEmpresa({ params }: { params: { id: number } }) {
   const navigate = useRouter();
@@ -25,16 +26,9 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
   useEffect(() => {
     const fetchEmpresa = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/empresas/${params.id}`);
-        if (response.ok) {
-          const data: Empresa = await response.json();
-          setEmpresa(data);
-        } else {
-          setModalMessage("Erro ao buscar empresa.");
-          setIsSuccess(false);
-          setIsModalOpen(true);
-        }
-      } catch {
+        const data = await empresasAPI.getById(params.id);
+        setEmpresa(data);
+      } catch (error: any) {
         setModalMessage("Erro ao buscar empresa.");
         setIsSuccess(false);
         setIsModalOpen(true);
@@ -52,52 +46,37 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8080/api/empresas/${params.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome: empresa.nome,
-          email: empresa.email,
-          estado: empresa.estado,
-          kwh: empresa.kwh,
-          tipoEnergia: empresa.tipoEnergia,
-        }),
+      const updatedEmpresa = await empresasAPI.update(params.id, {
+        nome: empresa.nome,
+        email: empresa.email,
+        estado: empresa.estado,
+        kwh: empresa.kwh,
+        tipoEnergia: empresa.tipoEnergia,
+      });
+      
+      setModalMessage("Empresa alterada com sucesso!");
+      setIsSuccess(true);
+      setIsModalOpen(true);
+
+      const empresaLogada = JSON.parse(localStorage.getItem("empresaLogada") || "{}");
+      empresaLogada.empresa = updatedEmpresa;
+      localStorage.setItem("empresaLogada", JSON.stringify(empresaLogada));
+
+      setEmpresa({
+        id: 0,
+        nome: "",
+        cnpj: "",
+        email: "",
+        estado: "",
+        kwh: 0,
+        tipoEnergia: "",
       });
 
-      if (response.ok) {
-      
-        setModalMessage("Empresa alterada com sucesso!");
-        setIsSuccess(true);
-        setIsModalOpen(true);
-
-        const updatedEmpresa = { ...empresa };
-        const empresaLogada = JSON.parse(localStorage.getItem("empresaLogada") || "{}");
-        empresaLogada.empresa = updatedEmpresa;
-        localStorage.setItem("empresaLogada", JSON.stringify(empresaLogada));
-
-        setEmpresa({
-          id: 0,
-          nome: "",
-          cnpj: "",
-          email: "",
-          estado: "",
-          kwh: 0,
-          tipoEnergia: "",
-        });
-
-       
-        setTimeout(() => {
-          navigate.push("/pagina-empresa");
-        }, 1000);
-      } else {
-      
-        setModalMessage("Falha ao realizar a alteração.");
-        setIsSuccess(false);
-        setIsModalOpen(true);
-      }
-    } catch {
+     
+      setTimeout(() => {
+        navigate.push("/pagina-empresa");
+      }, 1000);
+    } catch (error: any) {
     
       setModalMessage("Falha ao realizar a alteração.");
       setIsSuccess(false);

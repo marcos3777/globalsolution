@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaSignInAlt } from "react-icons/fa";
 import { FaBuilding, FaLock } from "react-icons/fa";
+import { loginAPI } from "@/utils/api";
 
 export default function LoginPage() {
   const [cnpj, setCnpj] = useState("");
@@ -22,33 +23,18 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ cnpj, senha }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("empresaLogada", JSON.stringify(data));
-        setModalMessage("Login bem-sucedido! Redirecionando...");
-        setIsSuccess(true);
-        setIsModalOpen(true);
-        // Redirecionar após 1 segundo
-        setTimeout(() => {
-          navigate.push("/pagina-empresa");
-        }, 1000);
-      } else {
-        const errorData = await response.json();
-        setModalMessage(errorData.message || "CNPJ ou senha inválidos.");
-        setIsSuccess(false);
-        setIsModalOpen(true);
-      }
-    } catch (error) {
+      const data = await loginAPI.login({ cnpj, senha });
+      localStorage.setItem("empresaLogada", JSON.stringify(data));
+      setModalMessage("Login bem-sucedido! Redirecionando...");
+      setIsSuccess(true);
+      setIsModalOpen(true);
+      // Redirecionar após 1 segundo
+      setTimeout(() => {
+        navigate.push("/pagina-empresa");
+      }, 1000);
+    } catch (error: any) {
       console.error("Erro ao fazer login:", error);
-      setModalMessage("Erro ao fazer login. Tente novamente mais tarde.");
+      setModalMessage(error.message || "CNPJ ou senha inválidos.");
       setIsSuccess(false);
       setIsModalOpen(true);
     }

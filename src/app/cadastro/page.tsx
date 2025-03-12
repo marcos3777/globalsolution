@@ -3,7 +3,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Empresa, Login } from "@/types/type"; 
+import { Empresa, Login } from "@/types/type";
+import { empresasAPI } from "@/utils/api";
 
 export default function CadastroEmpresa() {
   const tiposDeEnergia = ["Solar", "Eólica", "Hidrelétrica", "Fóssil"];
@@ -40,36 +41,23 @@ export default function CadastroEmpresa() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/empresas", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      await empresasAPI.create(data);
+      setMensagem("Cadastro realizado com sucesso!");
+      setEmpresa({
+        nome: "",
+        cnpj: "",
+        email: "",
+        estado: "",
+        kwh: 0,
+        tipoEnergia: "",
       });
-
-      if (response.ok) {
-        await response.json();
-        setMensagem("Cadastro realizado com sucesso!");
-        setEmpresa({
-          nome: "",
-          cnpj: "",
-          email: "",
-          estado: "",
-          kwh: 0,
-          tipoEnergia: "",
-        });
-        setLogin({
-          senha: "",
-          cnpj: "",
-        });
-      } else {
-        const errorData = await response.json();
-        setMensagem(`Erro ao realizar cadastro: ${errorData.message || errorData}`);
-      }
-    } catch (error) {
+      setLogin({
+        senha: "",
+        cnpj: "",
+      });
+    } catch (error: any) {
       console.error("Erro:", error);
-      setMensagem("Erro ao realizar cadastro. Por favor, tente novamente.");
+      setMensagem(`Erro ao realizar cadastro: ${error.message || "Erro desconhecido"}`);
     } finally {
       setCarregando(false);
     }
