@@ -17,9 +17,9 @@ export default function FilaCadastro() {
     try {
       const data = await empresasAPI.getPendentes();
       setEmpresasPendentes(data);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro ao buscar empresas pendentes:", error);
-      setErro(error.message || "Erro ao buscar empresas pendentes");
+      setErro(error instanceof Error ? error.message : "Erro ao buscar empresas pendentes");
     } finally {
       setCarregando(false);
     }

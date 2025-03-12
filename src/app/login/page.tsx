@@ -32,9 +32,9 @@ export default function LoginPage() {
       setTimeout(() => {
         navigate.push("/pagina-empresa");
       }, 1000);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro ao fazer login:", error);
-      setModalMessage(error.message || "CNPJ ou senha inválidos.");
+      setModalMessage(error instanceof Error ? error.message : "CNPJ ou senha inválidos.");
       setIsSuccess(false);
       setIsModalOpen(true);
     }

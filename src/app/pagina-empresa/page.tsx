@@ -6,11 +6,20 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { empresasAPI } from "@/utils/api";
-import { Empresa } from "@/types/type";
+
+interface EmpresaData {
+  id: number;
+  nome: string;
+  cnpj: string;
+  email: string;
+  estado: string;
+  kwh: number;
+  tipoEnergia: string;
+}
 
 export default function EmpresaPage() {
   const navigate = useRouter();
-  const [empresaLogada, setEmpresaLogada] = useState<any>(null);
+  const [empresaLogada, setEmpresaLogada] = useState<{ empresa: EmpresaData } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<{
     title?: string;
@@ -58,11 +67,11 @@ export default function EmpresaPage() {
               navigate.push("/");
             }, 2000);
           }
-        } catch (error: any) {
+        } catch (error) {
           console.error("Erro ao excluir a conta:", error);
           setModalContent({
             title: "Erro",
-            message: error.message || "Erro ao excluir a conta. Tente novamente mais tarde.",
+            message: error instanceof Error ? error.message : "Erro ao excluir a conta. Tente novamente mais tarde.",
           });
         }
       },
@@ -145,7 +154,7 @@ export default function EmpresaPage() {
 
 // Componente Modal
 interface ModalProps {
-  title: string;
+  title?: string;
   message: string;
   onClose: () => void;
   onConfirm?: () => void;
@@ -155,7 +164,7 @@ const Modal: React.FC<ModalProps> = ({ title, message, onClose, onConfirm }) => 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 max-w-md">
-        <h2 className="text-2xl font-bold mb-4">{title}</h2>
+        {title && <h2 className="text-2xl font-bold mb-4">{title}</h2>}
         <p className="text-gray-300 mb-6">{message}</p>
         <div className="flex justify-end space-x-4">
           <button

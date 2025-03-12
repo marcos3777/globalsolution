@@ -55,9 +55,9 @@ export default function CadastroEmpresa() {
         senha: "",
         cnpj: "",
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro:", error);
-      setMensagem(`Erro ao realizar cadastro: ${error.message || "Erro desconhecido"}`);
+      setMensagem(`Erro ao realizar cadastro: ${error instanceof Error ? error.message : "Erro desconhecido"}`);
     } finally {
       setCarregando(false);
     }

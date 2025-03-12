@@ -1,6 +1,5 @@
 import { Empresa, Login } from '@/types/type';
 import {
-  openDB,
   getAllItems,
   getItemById,
   addItem,
@@ -16,7 +15,7 @@ const API_URL = "http://localhost:8080/api";
 const USE_LOCAL_DB = true; // Toggle this to use local DB or remote API
 
 // Helper function to handle API responses
-const handleResponse = async (response: Response) => {
+const handleResponse = async <T>(response: Response): Promise<T> => {
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || "Error fetching data");
@@ -29,22 +28,22 @@ export const empresasAPI = {
   // Get all empresas
   getAll: async (): Promise<Empresa[]> => {
     if (USE_LOCAL_DB) {
-      return getAllItems('empresas');
+      return getAllItems<Empresa>('empresas');
     } else {
       const response = await fetch(`${API_URL}/empresas`);
-      return handleResponse(response);
+      return handleResponse<Empresa[]>(response);
     }
   },
 
   // Get empresa by ID
   getById: async (id: number): Promise<Empresa> => {
     if (USE_LOCAL_DB) {
-      const empresa = await getItemById('empresas', id);
+      const empresa = await getItemById<Empresa>('empresas', id);
       if (!empresa) throw new Error("Empresa não encontrada");
       return empresa;
     } else {
       const response = await fetch(`${API_URL}/empresas/${id}`);
-      return handleResponse(response);
+      return handleResponse<Empresa>(response);
     }
   },
 
@@ -54,7 +53,7 @@ export const empresasAPI = {
       return getEmpresasByEstado(estado);
     } else {
       const response = await fetch(`${API_URL}/empresas/estado/${estado}`);
-      return handleResponse(response);
+      return handleResponse<Empresa[]>(response);
     }
   },
 
@@ -64,14 +63,14 @@ export const empresasAPI = {
       return getPendingEmpresas();
     } else {
       const response = await fetch(`${API_URL}/empresas/pendentes`);
-      return handleResponse(response);
+      return handleResponse<Empresa[]>(response);
     }
   },
 
   // Create empresa
-  create: async (data: { empresa: Empresa, login: { senha: string } }): Promise<any> => {
+  create: async (data: { empresa: Empresa, login: { senha: string } }): Promise<Empresa> => {
     if (USE_LOCAL_DB) {
-      const newEmpresa = await addItem('empresas', data.empresa);
+      const newEmpresa = await addItem<Empresa>('empresas', data.empresa);
       
       // Create login for the empresa
       const newLogin: Login = {
@@ -81,7 +80,7 @@ export const empresasAPI = {
         status: "PENDENTE"
       };
       
-      await addItem('login', newLogin);
+      await addItem<Login>('login', newLogin);
       return newEmpresa;
     } else {
       const response = await fetch(`${API_URL}/empresas`, {
@@ -91,26 +90,26 @@ export const empresasAPI = {
         },
         body: JSON.stringify(data),
       });
-      return handleResponse(response);
+      return handleResponse<Empresa>(response);
     }
   },
 
   // Update empresa
   update: async (id: number, data: Partial<Empresa>): Promise<Empresa> => {
     if (USE_LOCAL_DB) {
-      const empresa = await getItemById('empresas', id);
+      const empresa = await getItemById<Empresa>('empresas', id);
       if (!empresa) throw new Error("Empresa não encontrada");
       
       const updatedEmpresa = { ...empresa, ...data };
-      await updateItem('empresas', updatedEmpresa);
+      await updateItem<Empresa>('empresas', updatedEmpresa);
       
       // Update empresa in login object if it exists
-      const allLogins = await getAllItems('login');
+      const allLogins = await getAllItems<Login>('login');
       const loginToUpdate = allLogins.find(login => login.empresa.id === id);
       
       if (loginToUpdate) {
         loginToUpdate.empresa = updatedEmpresa;
-        await updateItem('login', loginToUpdate);
+        await updateItem<Login>('login', loginToUpdate);
       }
       
       return updatedEmpresa;
@@ -122,7 +121,7 @@ export const empresasAPI = {
         },
         body: JSON.stringify(data),
       });
-      return handleResponse(response);
+      return handleResponse<Empresa>(response);
     }
   },
 
@@ -133,7 +132,7 @@ export const empresasAPI = {
       await deleteItem('empresas', id);
       
       // Delete related login if exists
-      const allLogins = await getAllItems('login');
+      const allLogins = await getAllItems<Login>('login');
       const loginToDelete = allLogins.find(login => login.empresa.id === id);
       
       if (loginToDelete) {
@@ -179,18 +178,18 @@ export const loginAPI = {
         },
         body: JSON.stringify(credentials),
       });
-      return handleResponse(response);
+      return handleResponse<{ empresa: Empresa }>(response);
     }
   },
 
   // Update login status
   updateStatus: async (id: number, status: string): Promise<void> => {
     if (USE_LOCAL_DB) {
-      const login = await getItemById('login', id);
+      const login = await getItemById<Login>('login', id);
       if (!login) throw new Error("Login não encontrado");
       
       login.status = status;
-      await updateItem('login', login);
+      await updateItem<Login>('login', login);
     } else {
       const response = await fetch(`${API_URL}/login/${id}/status`, {
         method: "PUT",

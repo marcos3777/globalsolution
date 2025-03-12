@@ -309,66 +309,71 @@ export const openDB = (): Promise<IDBDatabase> => {
       }
 
       // Add sample data only during database creation
-      const empresasStore = event.target?.transaction?.objectStore(STORES.empresas);
-      const loginStore = event.target?.transaction?.objectStore(STORES.login);
+      const eventWithTarget = event as IDBVersionChangeEvent;
+      const transaction = request.transaction;
       
-      if (empresasStore && loginStore) {
-        sampleEmpresas.forEach(empresa => {
-          empresasStore.add(empresa);
-        });
+      if (transaction) {
+        const empresasStore = transaction.objectStore(STORES.empresas);
+        const loginStore = transaction.objectStore(STORES.login);
         
-        sampleLogin.forEach(login => {
-          loginStore.add(login);
-        });
+        if (empresasStore && loginStore) {
+          sampleEmpresas.forEach(empresa => {
+            empresasStore.add(empresa);
+          });
+          
+          sampleLogin.forEach(login => {
+            loginStore.add(login);
+          });
+        }
       }
     };
   });
 };
 
 // Generic function to get all items from a store
-export const getAllItems = async (storeName: string): Promise<any[]> => {
+export const getAllItems = async <T>(storeName: string): Promise<T[]> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(storeName, "readonly");
     const store = transaction.objectStore(storeName);
     const request = store.getAll();
 
-    request.onsuccess = () => resolve(request.result);
+    request.onsuccess = () => resolve(request.result as T[]);
     request.onerror = () => reject(request.error);
     transaction.oncomplete = () => db.close();
   });
 };
 
 // Function to get a single item by id
-export const getItemById = async (storeName: string, id: number): Promise<any> => {
+export const getItemById = async <T>(storeName: string, id: number): Promise<T> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(storeName, "readonly");
     const store = transaction.objectStore(storeName);
     const request = store.get(id);
 
-    request.onsuccess = () => resolve(request.result);
+    request.onsuccess = () => resolve(request.result as T);
     request.onerror = () => reject(request.error);
     transaction.oncomplete = () => db.close();
   });
 };
 
 // Function to add an item
-export const addItem = async (storeName: string, item: any): Promise<any> => {
+export const addItem = async <T>(storeName: string, item: T): Promise<T> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(storeName, "readwrite");
     const store = transaction.objectStore(storeName);
     const request = store.add(item);
 
-    request.onsuccess = () => resolve({ ...item, id: request.result });
+    request.onsuccess = () => resolve({ ...item, id: request.result } as T);
     request.onerror = () => reject(request.error);
     transaction.oncomplete = () => db.close();
   });
 };
 
 // Function to update an item
-export const updateItem = async (storeName: string, item: any): Promise<any> => {
+export const updateItem = async <T>(storeName: string, item: T): Promise<T> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(storeName, "readwrite");
@@ -427,7 +432,7 @@ export const getLoginByCnpj = async (cnpj: string): Promise<Login | undefined> =
 
 // Get pending empresas (status PENDENTE)
 export const getPendingEmpresas = async (): Promise<Empresa[]> => {
-  const allLogins = await getAllItems(STORES.login);
+  const allLogins = await getAllItems<Login>(STORES.login);
   return allLogins
     .filter(login => login.status === "PENDENTE")
     .map(login => login.empresa);

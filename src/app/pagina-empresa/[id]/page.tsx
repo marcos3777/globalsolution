@@ -28,7 +28,7 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
       try {
         const data = await empresasAPI.getById(params.id);
         setEmpresa(data);
-      } catch (error: any) {
+      } catch (error) {
         setModalMessage("Erro ao buscar empresa.");
         setIsSuccess(false);
         setIsModalOpen(true);
@@ -76,8 +76,7 @@ export default function EditarEmpresa({ params }: { params: { id: number } }) {
       setTimeout(() => {
         navigate.push("/pagina-empresa");
       }, 1000);
-    } catch (error: any) {
-    
+    } catch (_error) {
       setModalMessage("Falha ao realizar a alteração.");
       setIsSuccess(false);
       setIsModalOpen(true);
