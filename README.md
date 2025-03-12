@@ -1,4 +1,4 @@
-# EnerSystem
+# EnergSystem
 
 ## Equipe
 - **Marcos Vinicius Pereira de Oliveira - RM557252**
